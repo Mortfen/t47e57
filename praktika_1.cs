@@ -50,10 +50,11 @@ void task6()
     int n = Convert.ToInt32(Console.ReadLine());
     Console.WriteLine("Задание 6, введите число монет:");
     int m = Convert.ToInt32(Console.ReadLine());
-    int h = m / 10;//сколько каждому достанется монет
-    Console.WriteLine($"Каждому достанется: {h}");
-    m = m - ((n * h) + (a * h));
-    Console.WriteLine($"Останется монет: {m}");
+    int h = a + n;//Общие количество
+    int p = m / h;
+    Console.WriteLine($"Каждому достанется: {p}");
+    int p2 = m % h;
+    Console.WriteLine($"Останется монет: {p2}");
 }
 task6();
 //Задание 7
@@ -72,6 +73,32 @@ void task7()
     Console.WriteLine("2-я переменная", Sum(n, a));
 }
 task7();
+//Задание 7
+void task77()
+{
+    Console.WriteLine("Задание 7 введите 1 переменную:");
+    double a = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine("Задание введите вторую переменную:");
+    double n = Convert.ToDouble(Console.ReadLine());
+    a = a + n;
+    n = a - n;
+    a = a - n;
+    Console.WriteLine($"1-я переменная{a}");
+    Console.WriteLine($"2-я переменная{n}");
+}
+task77();
+//Задание 7
+void task88()
+{
+    Console.WriteLine("Задание 7 введите 1 переменную:");
+    double a = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine("Задание введите вторую переменную:");
+    double n = Convert.ToDouble(Console.ReadLine());
+    (a, n) = (n, a);
+    Console.WriteLine($"1-я переменная{a}");
+    Console.WriteLine($"2-я переменная{n}");
+}
+task88();
 //Задание 8
 void task8()
 {
@@ -97,6 +124,7 @@ void task1()
 }
 task1();
 //Задание 2
+//парты
 void task2()
 {
     Console.WriteLine("Задание 2 введите кол-во учеников в 1 классе:");
@@ -105,12 +133,17 @@ void task2()
     int z = Convert.ToInt32(Console.ReadLine());
     Console.WriteLine("введите кол-во учеников в 3 классе:");
     int x = Convert.ToInt32(Console.ReadLine());
-    double y = a + z + x;
+    double y = a;
     y = y / 2;
-    double f = y - (int)y;//находим остаток
-    f = 1 - f;
-    double p = f + y;
-    Console.WriteLine($"Кол-во парт {p}");
+    double o1 = Math.Ceiling(y);
+    double i = z;
+    i = y / 2;
+    double o2 = Math.Ceiling(y);
+    double i2 = x;
+    i2 = y / 2;
+    double o3 = Math.Ceiling(y);
+    double obs = o1 + o2 + o3;
+    Console.WriteLine($"Кол-во парт {obs}");
 }
 task2();
 //Задание 3
@@ -143,12 +176,24 @@ void task44()
 }
 task44();
 //Задание 5
-void task55()
+void task44()
 {
-    Console.WriteLine("Задание 5 введите радиус круга:");
-    double z = Convert.ToDouble(Console.ReadLine());
-    double s = Math.Pow(z, 2) * Math.PI;
-    Console.WriteLine($"Площадь равна: {s}");
-}
+    Console.WriteLine("Задание 4 введите кол-во секунд:");
+    int a = Convert.ToInt32(Console.ReadLine());
+    // в часу 3600 секунд, в минуте 60
+    int z = a / 3600;//кол-во часов
+    int z2 = a - (z * 3600);
+    int i = z2 / 60;//кол-во минут
+    int i2 = z2 - (i * 60);
+    //Console.Write(z);
+    int o1 = z % 10;
+    int o2 = z / 10;
+    int o3 = i % 10;
+    int o4 = i / 10;
+    int o5 = i2 % 10;
+    int o6 = i2 / 10;
 
-task55();
+
+    Console.Write($"{o2}{o1}:{o4}{o3}:{o6}{o5}");
+}
+task44();
