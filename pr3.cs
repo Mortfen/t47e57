@@ -1,4 +1,4 @@
-﻿
+
 //Задание 1
 using System.Diagnostics.CodeAnalysis;
 
@@ -292,3 +292,172 @@ ExitLoop:
 }
 task3();
 //Задание 9
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+
+    {
+        Console.WriteLine("Введите число N");
+        int h = Convert.ToInt32(Console.ReadLine());
+        int limit = h; // Установите предел до которого нужно найти простые числа
+        List<int> primes = SieveOfAtkin(limit);
+
+        Console.WriteLine("Простые числа до " + limit + ":");
+        foreach (int prime in primes)
+        {
+            Console.Write(prime + " ");
+        }
+    }
+
+    static List<int> SieveOfAtkin(int limit)
+    {
+        if (limit < 2) return new List<int>();
+        if (limit < 3) return new List<int> { 2 };
+
+        bool[] isPrime = new bool[limit + 1];
+        for (int i = 0; i <= limit; i++)
+        {
+            isPrime[i] = false;
+        }
+
+        isPrime[2] = true;
+        isPrime[3] = true;
+
+        for (int x = 1; x * x <= limit; x++)
+        {
+            for (int y = 1; y * y <= limit; y++)
+            {
+                int n = 4 * x * x + y * y;
+                if (n <= limit && (n % 12 == 1 || n % 12 == 5))
+                {
+                    isPrime[n] = !isPrime[n];
+                }
+
+                n = 3 * x * x + y * y;
+                if (n <= limit && n % 12 == 7)
+                {
+                    isPrime[n] = !isPrime[n];
+                }
+
+                n = 3 * x * x - y * y;
+                if (x > y && n <= limit && n % 12 == 11)
+                {
+                    isPrime[n] = !isPrime[n];
+                }
+            }
+        }
+
+        for (int r = 5; r * r <= limit; r++)
+        {
+            if (isPrime[r])
+            {
+                for (int i = r * r; i <= limit; i += r * r)
+                {
+                    isPrime[i] = false;
+                }
+            }
+        }
+
+        List<int> primes = new List<int>();
+        for (int i = 2; i <= limit; i++)
+        {
+            if (isPrime[i])
+            {
+                primes.Add(i);
+            }
+        }
+
+        return primes;
+    }
+}
+//задание 10
+using System;
+using System.Collections.Generic;
+
+//int l = 0;
+Random Random = new Random();
+for (int a = 1; a < 6; a++)
+{
+    int l = number(a);
+    Console.WriteLine("Введите ответ на задачу:");
+    int g = Convert.ToInt32(Console.ReadLine());
+    if (g == l) { Console.WriteLine("Ответ правильный!"); } else { Console.WriteLine($"Ответ не правильный, правильный ={l}"); }
+}
+static int number(int a)
+{
+    string p = "";
+    int l = 0;
+    Random Random = new Random();
+    int z = Random.Next(1, 11);
+    int x = Random.Next(1, 11);
+    string ex;
+    switch (a)
+    {
+        case 1:
+            p = "+"; l = x + z;
+            break;
+        case 2:
+            p = "-"; l = x - z;
+            break;
+        case 3:
+            p = "*"; l = x * z;
+            break;
+        case 4:
+            p = "/"; l = x / z;
+            break;
+        case 5:
+            p = "%"; l = x % z;
+            break;
+    }
+    ex = $"{z}{p}{x}";
+    Console.WriteLine(ex);
+    return l;
+}
+//Задание 11
+using System;
+using System.Collections.Generic;
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Входные данные
+        double initialSum = 8000; // Начальная сумма
+        double annualRate = 15; // Процентная ставка (в годовых)
+        Console.WriteLine("Введите количество месяцев");
+        int months = Convert.ToInt32(Console.ReadLine());
+        // Переводим процентную ставку в десятичный вид
+        double monthlyRate = annualRate / 12 / 100;
+
+        // Вычисляем сумму на конец каждого месяца
+        for (int i = 1; i <= months; i++)
+        {
+            double sum = initialSum * Math.Pow(1 + monthlyRate, i);
+            Console.WriteLine($"{i} месяц: {sum:F6}");
+        }
+    }
+}
+//Задание 12
+using System;
+using System.Collections.Generic;
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите значение n!");
+        int z = Convert.ToInt32(Console.ReadLine());
+        int factor = fac(z);
+        Console.WriteLine($"Факториал числа = {factor}");
+        int fac(int n)
+        {
+            if (n == 1) return 1;
+            return n * fac(n - 1);
+        }
+    }
+}
