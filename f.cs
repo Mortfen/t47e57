@@ -130,5 +130,28 @@ public static class F
     }
 
 }
+    public static string alpha(string text, int shift) 
+    {
+    
+        StringBuilder sb = new StringBuilder();
+        foreach (char c in text) 
+        {
+            if (Array.IndexOf(russianAlphabet, c) != -1)
+            {
+                int index = Array.IndexOf(russianAlphabet, c);
+                int n = (index + shift) % russianAlphabet.Length;
+                sb.Append(russianAlphabet[n]);
+            }
+            else { sb.Append(c); }
+            
+            
+        }
+        
+        return sb.ToString();
+    }
+    public static string enc(string text, int s) 
+    { return alpha(text, russianAlphabet.Length - s); }
 
+
+}
 
