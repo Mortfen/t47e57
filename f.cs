@@ -168,7 +168,7 @@ public static void Bubble(list<int> n)
             }
         }
     }
-        public static list<int> ins(List<int> s)
+        public static void ins(List<int> s)
         {
             int n = array.Length;
         for (int i = 1; i < n; i++)
@@ -186,7 +186,23 @@ public static void Bubble(list<int> n)
         }
         }
 
-    public static list<int> 
+    public static int binsearch(list<int> z, int target)
+    {
+        int l=0;
+        int r=z.count;
+        while(r>=l)
+        {
+            int mid =l+(r-l)/2;
+            if(z[mid]<target) {l=mid; for(int i=l;l>=r;l++){Console.Write($"z[l]")}}
+            else if(z[mid]>target) {r=mid; for(int i=l;l>=r;l++){Console.Write($"z[l]")}}
+            if (z[mid]== target){//////}
+            
+        }
+
+
+
+        
+    }
 
 }
 
