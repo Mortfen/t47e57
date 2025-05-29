@@ -1,0 +1,108 @@
+using System;
+using System.Threading;
+
+class MergeSortExample
+{
+    // Основная функция, которая сортирует массив с помощью сортировки слиянием
+    public static void MergeSort(int[] array, int left, int right)
+    {
+        if (left < right)
+        {
+            // Находим середину массива
+            int middle = left + (right - left) / 2;
+            ;
+            // Рекурсивно сортируем первую и вторую половины
+            MergeSort(array, left, middle);
+            MergeSort(array, middle + 1, right);
+
+            Thread t1 = new Thread(Merge(array, left, middle, right));
+            Thread currentThread = Thread.CurrentThread;
+            // Объединяем отсортированные половины
+            // Merge(array, left, middle, right);
+        }
+    }
+
+    // Функция для объединения двух отсортированных подмассивов
+    public static void Merge(int[] array, int left, int middle, int right)
+    {
+        // Определяем размеры двух подмассивов, которые нужно объединить
+        int n1 = middle - left + 1;
+        int n2 = right - middle;
+
+        // Создаем временные массивы
+        int[] leftArray = new int[n1];
+        int[] rightArray = new int[n2];
+
+        // Копируем данные во временные массивы
+        for (int i = 0; i < n1; i++)
+            leftArray[i] = array[left + i];
+        for (int j = 0; j < n2; j++)
+            rightArray[j] = array[middle + 1 + j];
+
+        // Объединяем временные массивы обратно в основной массив
+        int k = left;
+        int x = 0, y = 0;
+        while (x < n1 && y < n2)
+        {
+            if (leftArray[x] <= rightArray[y])
+            {
+                array[k] = leftArray[x];
+                x++;
+            }
+            else
+            {
+                array[k] = rightArray[y];
+                y++;
+            }
+            k++;
+        }
+
+        // Копируем оставшиеся элементы leftArray, если такие есть
+        while (x < n1)
+        {
+            array[k] = leftArray[x];
+            x++;
+            k++;
+        }
+
+        // Копируем оставшиеся элементы rightArray, если такие есть
+        while (y < n2)
+        {
+            array[k] = rightArray[y];
+            y++;
+            k++;
+        }
+    }
+
+    // Утилитарная функция для печати массива
+    public static void PrintArray(int[] array)
+    {
+        foreach (var item in array)
+        {
+            Console.Write(item + " ");
+        }
+        Console.WriteLine();
+    }
+
+    // Тестирование функции
+    public static void Main()
+    {
+        int[] array = { 12, 11, 13, 5, 6, 7 };
+
+        Console.WriteLine("Исходный массив:");
+        PrintArray(array);
+
+        MergeSort(array, 0, array.Length - 1);
+
+        Console.WriteLine("\nОтсортированный массив:");
+        PrintArray(array);
+        Console.WriteLine($"Имя потока: {currentThread.Name}");
+        currentThread.Name = "Метод Main";
+        Console.WriteLine($"Имя потока: {currentThread.Name}");
+
+        Console.WriteLine($"Запущен ли поток: {currentThread.IsAlive}");
+        Console.WriteLine($"Id потока: {currentThread.ManagedThreadId}");
+        Console.WriteLine($"Приоритет потока: {currentThread.Priority}");
+        Console.WriteLine($"Статус потока: {currentThread.ThreadState}");
+    }
+}
