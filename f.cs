@@ -186,5 +186,7 @@ public static void Bubble(list<int> n)
         }
         }
 
+    public static list<int> 
+
 }
 
