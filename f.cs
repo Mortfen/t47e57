@@ -151,40 +151,56 @@ public static class F
     }
     public static string enc(string text, int s) 
     { return alpha(text, russianAlphabet.Length - s); }
-public static void Bubble(list<int> n)
-    {
-        int n = array.Length;
-        for (int i = 0; i < n - 1; i++)
+
+
+ public static long Bubble(List<int> list)
+   {
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+        int n = list.Count;
+        for (int i = 1; i < n ; i++)
         {
-            for (int j = 0; j < n - i - 1; j++)
+            for (int j = 0; j < n - i; j++)
             {
-                if (array[j] > array[j + 1])
+                if (list[j] > list[j + 1])
                 {
-                    // Обмен значениями
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
+                    // Меняем элементы местами
+                    int temp = list[j];
+                    list[j] = list[j + 1];
+                    list[j + 1] = temp;
                 }
             }
         }
+        
+        stopwatch.Stop();
+        long z = stopwatch.ElapsedMilliseconds;
+        return z;
+   }
+   public static long ins(List<int> a)
+    { 
+       
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+        for (int i = 1; i <a.Count; i++) 
+        {
+           int index = a[i];
+           int j = i-1;
+            while (j >= 0 && a[j]> index)
+            { a[j + 1] = a[j]; j--;}
+            a[j+1]=index;
+        }
+        stopwatch.Stop ();
+        long z = stopwatch.ElapsedMilliseconds;
+        return z;
+    
+    
     }
-        public static void ins(List<int> s)
-        {
-            int n = array.Length;
-        for (int i = 1; i < n; i++)
-        {
-            int key = array[i];
-            int j = i - 1;
+}
 
-            // Перемещаем элементы массива, которые больше ключа, на одну позицию вперед
-            while (j >= 0 && array[j] > key)
-            {
-                array[j + 1] = array[j];
-                j=j-1;
-            }
-            array[j + 1] = key;
-        }
-        }
+    
+
+
+
 
     public static int binsearch(list<int> z, int target)
     {
