@@ -151,7 +151,23 @@ public static class F
     }
     public static string enc(string text, int s) 
     { return alpha(text, russianAlphabet.Length - s); }
-
+public static void BubbleSort(list<int> n)
+    {
+        int n = array.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if (array[j] > array[j + 1])
+                {
+                    // Обмен значениями
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+    }
 
 }
 
