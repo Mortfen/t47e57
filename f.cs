@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ScottPlot;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using OxyPlot;
 using OxyPlot.Series;
+using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 public static class F
 {
+    private static readonly char[] russianAlphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя".ToCharArray();
     public static void num1(int b, List<string> fam, List<int> mat, List<int> bio, List<int> lit)
     {
         if (b == 1) { Console.WriteLine($"Имя - {fam[0]}, оценки: Математика - {mat[0]}, Биология - {bio[0]}, Литература - {lit[0]}"); }
@@ -24,28 +28,27 @@ public static class F
         if (b == 2) { for (int i = 0; i < 5; i++) { if (bio[i] == a) { Console.WriteLine($"Оценка по биологи {a} у: {fam[i - 1]}"); } } }
         if (b == 3) { for (int i = 0; i < 5; i++) { if (lit[i] == a) { Console.WriteLine($"Оценка по литературе {a} у: {fam[i - 1]}"); } } }
     }
-    public static void rnd(List<int> a, List<int> b, List<int> c, List<int> d)
+    public static List<int> rnd(int x, int y, int t)
     {
+        List<int> b = new List<int>();
         Random rnd = new Random();
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < t; i++)
         {
-            a[i] = rnd.Next(1, 10);
-            b[i] = rnd.Next(1, 10);
-            c[i] = rnd.Next(1, 10);
-            d[i] = rnd.Next(1, 10);
-
-
+            b.Add(rnd.Next(x, y));
         }
+        return b;
     }
-    public static void print(List<int> a)
+    public static void print(List<int> a, int t)
     {
-        Console.Write($" Массив - ");
-        for (int i = 0; i < 7; i++)
+        Console.WriteLine($" Массив - ");
+        for (int i = 0; i < t; i++)
         {
             Console.Write($"{a[i]} ");
 
 
         }
+        Thread.Sleep(1000);
+
 
     }
     public static void print2(List<double> a)
@@ -128,13 +131,11 @@ public static class F
             Console.WriteLine();
         }
     }
-
-}
-    public static string alpha(string text, int shift) 
+    public static string alpha(string text, int shift)
     {
-    
+
         StringBuilder sb = new StringBuilder();
-        foreach (char c in text) 
+        foreach (char c in text)
         {
             if (Array.IndexOf(russianAlphabet, c) != -1)
             {
@@ -143,22 +144,21 @@ public static class F
                 sb.Append(russianAlphabet[n]);
             }
             else { sb.Append(c); }
-            
-            
+
+
         }
-        
+
         return sb.ToString();
     }
-    public static string enc(string text, int s) 
+    public static string enc(string text, int s)
     { return alpha(text, russianAlphabet.Length - s); }
 
-
- public static long Bubble(List<int> list)
-   {
+    public static long Bubble(List<int> list)
+    {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
         int n = list.Count;
-        for (int i = 1; i < n ; i++)
+        for (int i = 1; i < n; i++)
         {
             for (int j = 0; j < n - i; j++)
             {
@@ -171,54 +171,133 @@ public static class F
                 }
             }
         }
-        
+
         stopwatch.Stop();
         long z = stopwatch.ElapsedMilliseconds;
         return z;
-   }
-   public static long ins(List<int> a)
-    { 
-       
+    }
+    public static long quick(List<int> a)
+        {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
-        for (int i = 1; i <a.Count; i++) 
+        void Swap(int i, int j)
         {
-           int index = a[i];
-           int j = i-1;
-            while (j >= 0 && a[j]> index)
-            { a[j + 1] = a[j]; j--;}
-            a[j+1]=index;
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
         }
-        stopwatch.Stop ();
+
+        // Локальная функция для разделения массива
+        int Partition(int left, int right)
+        {
+            int pivot = a[right];
+            int i = left - 1;
+
+            for (int j = left; j < right; j++)
+            {
+                if (a[j] < pivot)
+                {
+                    i++;
+                    Swap(i, j);
+                }
+            }
+
+            Swap(i + 1, right);
+            return i + 1;
+        }
+
+        // Локальная функция для рекурсивной сортировки
+        void Sort(int left, int right)
+        {
+            if (left < right)
+            {
+                int pivotIndex = Partition(left, right);
+                Sort(left, pivotIndex - 1);
+                Sort(pivotIndex + 1, right);
+            }
+        }
+
+        // Начинаем сортировку
+        Sort(0, a.Count - 1);
+        stopwatch.Stop();
         long z = stopwatch.ElapsedMilliseconds;
         return z;
-    
-    
     }
-}
 
+
+
+
+   
     
-
-
-
-
-    public static int binsearch(list<int> z, int target)
+    public static long ins(List<int> a)
     {
-        int l=0;
-        int r=z.count;
-        while(r>=l)
+
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+        for (int i = 1; i < a.Count; i++)
         {
-            int mid =l+(r-l)/2;
-            if(z[mid]<target) {l=mid; for(int i=l;l>=r;l++){Console.Write($"z[l]")}}
-            else if(z[mid]>target) {r=mid; for(int i=l;l>=r;l++){Console.Write($"z[l]")}}
-            if (z[mid]== target){//////}
-            
+            int index = a[i];
+            int j = i - 1;
+            while (j >= 0 && a[j] > index)
+            { a[j + 1] = a[j]; j--; }
+            a[j + 1] = index;
+        }
+        stopwatch.Stop();
+        long z = stopwatch.ElapsedMilliseconds;
+        return z;
+
+
+    }
+    public static void printlong(List<long> a, int t)
+    {
+        Console.WriteLine($" Массив - ");
+        for (int i = 0; i < t; i++)
+        {
+            Console.Write($"{a[i]} ");
+
+
+        }
+        Thread.Sleep(1000);
+
+
+    }
+    public static void binsearch(List<int> z, int target)
+    {
+        int l = 0;
+        int r = z.Count;
+        while (r >= l)
+        {
+            int mid = l + (r - l) / 2;
+            if (z[mid] < target)
+            {
+                l = mid;
+                for (int i = l; i <= r-1; i++)
+                {
+                    Console.Write($"{z[i]} ");
+                }
+                Console.WriteLine();
+            }
+            else if (z[mid] > target)
+            {
+                r = mid;
+                for (int i = l; i <= r-1; i++)
+                {
+                    Console.Write($"{z[i]} ");
+                }
+                Console.WriteLine();
+            }
+            if (z[mid] == target) { Console.WriteLine($"Значение {z[mid]} найденно"); break; }
+
+
+
         }
 
+      
 
 
-        
     }
 
 }
+
+
 
