@@ -15,8 +15,7 @@ class MergeSortExample
             MergeSort(array, left, middle);
             MergeSort(array, middle + 1, right);
 
-            Thread t1 = new Thread(Merge(array, left, middle, right));
-            Thread currentThread = Thread.CurrentThread;
+            
             // Объединяем отсортированные половины
             // Merge(array, left, middle, right);
         }
